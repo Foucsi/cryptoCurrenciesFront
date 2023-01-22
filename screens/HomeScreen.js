@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { FontAwesome } from "@expo/vector-icons";
 
-export default function HomeScreen() {
+export default function HomeScreen({ navigation }) {
   const [cryptos, setCryptos] = useState([]);
 
   const url =
@@ -22,38 +22,41 @@ export default function HomeScreen() {
 
   const listingCrypto = cryptos.map((crypt, index) => {
     return (
-      <View
-        key={index}
-        style={{
-          padding: 5,
-          height: 120,
-          width: 120,
-          marginTop: 10,
-          alignItems: "center",
-          justifyContent: "space-evenly",
-          backgroundColor:
-            crypt.price_change_percentage_24h > 0 ? "#6DB76B" : "#E7595D",
-        }}
-      >
-        <Text style={{ color: "#fff", fontSize: 22, fontWeight: "bold" }}>
-          {crypt.name.slice(0, 3).toUpperCase()}
-        </Text>
-        <Text style={{ color: "#fff", fontWeight: "bold", fontSize: 16 }}>
-          {crypt.current_price}$
-        </Text>
-        <Image
-          source={{ uri: crypt.image }}
-          style={{ height: 40, width: 40 }}
-        />
-      </View>
+      <TouchableOpacity key={index}>
+        <View
+          style={{
+            padding: 5,
+            height: 120,
+            width: 120,
+            marginTop: 10,
+            alignItems: "center",
+            justifyContent: "space-evenly",
+            borderRadius: 5,
+            backgroundColor:
+              crypt.price_change_percentage_24h > 0 ? "#6DB76B" : "#E7595D",
+          }}
+        >
+          <Text style={{ color: "#fff", fontSize: 22, fontWeight: "bold" }}>
+            {crypt.name.slice(0, 3).toUpperCase()}
+          </Text>
+          <Text style={{ color: "#fff", fontWeight: "bold", fontSize: 16 }}>
+            {crypt.current_price}$
+          </Text>
+          <Image
+            source={{ uri: crypt.image }}
+            style={{ height: 40, width: 40 }}
+          />
+        </View>
+      </TouchableOpacity>
     );
   });
 
   return (
     <View style={styles.container}>
+      <Text style={{ fontSize: 28, color: "#D4D4D4" }}>COIN360</Text>
       <View
         style={{
-          height: "50%",
+          height: "60%",
           width: "90%",
           flexWrap: "wrap",
           justifyContent: "space-around",
@@ -67,7 +70,7 @@ export default function HomeScreen() {
           <FontAwesome
             name="refresh"
             size={36}
-            color="black"
+            color="#fff"
             onPress={() => fetchData()}
           />
         </TouchableOpacity>
@@ -81,5 +84,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "space-around",
+    backgroundColor: "#161817",
   },
 });

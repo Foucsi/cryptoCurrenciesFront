@@ -1,4 +1,11 @@
-import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  ScrollView,
+} from "react-native";
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -61,6 +68,7 @@ export default function HomeScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <Text style={{ fontSize: 28, color: "#D4D4D4" }}>COIN360</Text>
+
       <View
         style={{
           height: "60%",
@@ -72,6 +80,7 @@ export default function HomeScreen({ navigation }) {
       >
         {listingCrypto ? listingCrypto : "Aucune données récuperées"}
       </View>
+
       <View>
         <TouchableOpacity>
           <FontAwesome

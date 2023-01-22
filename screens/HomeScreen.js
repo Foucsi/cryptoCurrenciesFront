@@ -22,7 +22,14 @@ export default function HomeScreen({ navigation }) {
 
   const listingCrypto = cryptos.map((crypt, index) => {
     return (
-      <TouchableOpacity key={index}>
+      <TouchableOpacity
+        key={index}
+        onPress={() =>
+          navigation.navigate("Crypto", {
+            crypto: crypt,
+          })
+        }
+      >
         <View
           style={{
             padding: 5,
@@ -37,7 +44,7 @@ export default function HomeScreen({ navigation }) {
           }}
         >
           <Text style={{ color: "#fff", fontSize: 22, fontWeight: "bold" }}>
-            {crypt.name.slice(0, 3).toUpperCase()}
+            {crypt.symbol.toUpperCase()}
           </Text>
           <Text style={{ color: "#fff", fontWeight: "bold", fontSize: 16 }}>
             {crypt.current_price}$

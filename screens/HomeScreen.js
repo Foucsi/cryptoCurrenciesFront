@@ -47,7 +47,7 @@ export default function HomeScreen({ navigation }) {
             {crypt.symbol.toUpperCase()}
           </Text>
           <Text style={{ color: "#fff", fontWeight: "bold", fontSize: 16 }}>
-            {crypt.current_price}$
+            ${crypt.current_price}
           </Text>
           <Image
             source={{ uri: crypt.image }}

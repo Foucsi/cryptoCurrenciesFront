@@ -1,10 +1,61 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import React from "react";
+import Signin from "../components/Signin";
+import Signup from "../components/Signup";
+import { useState } from "react";
 
 export default function SignScreen() {
+  const [isVisible, setIsVisible] = useState(true);
   return (
     <View style={styles.container}>
-      <View style={styles.containerSign}></View>
+      <View style={styles.upSign}>
+        <View
+          style={{
+            height: "100%",
+            width: "50%",
+            alignItems: "center",
+            justifyContent: "center",
+            backgroundColor: isVisible ? "#E73C71" : "#fff",
+          }}
+        >
+          <TouchableOpacity onPress={() => setIsVisible(true)}>
+            <Text
+              style={{
+                color: isVisible ? "#fff" : "#373737",
+                fontWeight: "bold",
+                fontSize: 24,
+              }}
+            >
+              LOGIN
+            </Text>
+          </TouchableOpacity>
+        </View>
+        <View
+          style={{
+            height: "100%",
+            width: "50%",
+            alignItems: "center",
+            justifyContent: "center",
+            backgroundColor: isVisible ? "#fff" : "#E73C71",
+          }}
+        >
+          <TouchableOpacity onPress={() => setIsVisible(false)}>
+            <Text
+              style={{
+                color: "#373737",
+                fontWeight: "bold",
+                fontSize: 24,
+                color: isVisible ? "#373737" : "#fff",
+              }}
+            >
+              SIGN UP
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+      <View style={styles.containerSign}>
+        {isVisible ? <Signin /> : <Signup />}
+      </View>
     </View>
   );
 }
@@ -20,6 +71,13 @@ const styles = StyleSheet.create({
     height: "60%",
     width: "90%",
     backgroundColor: "#FFFFFF",
-    borderRadius: 10,
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+  },
+  upSign: {
+    width: "90%",
+    height: 100,
+    backgroundColor: "#fff",
+    flexDirection: "row",
   },
 });

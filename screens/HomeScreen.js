@@ -10,9 +10,15 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { FontAwesome } from "@expo/vector-icons";
+import { logout } from "../reducers/users";
+import { useSelector } from "react-redux";
+import { AntDesign } from "@expo/vector-icons";
+import { useDispatch } from "react-redux";
 
 export default function HomeScreen({ navigation }) {
   const [cryptos, setCryptos] = useState([]);
+  const users = useSelector((state) => state.user.value);
+  const dispatch = useDispatch();
 
   const url =
     "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1&sparkline=false";
@@ -26,6 +32,11 @@ export default function HomeScreen({ navigation }) {
   useEffect(() => {
     fetchData().catch(console.error);
   }, []);
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigation.navigate("Sign");
+  };
 
   const listingCrypto = cryptos.map((crypt, index) => {
     return (
@@ -67,9 +78,24 @@ export default function HomeScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => navigation.navigate("Sign")}>
-        <Text style={{ fontSize: 28, color: "#D4D4D4" }}>COIN360</Text>
-      </TouchableOpacity>
+      <Text style={{ fontSize: 28, color: "#D4D4D4", paddingTop: 10 }}>
+        COIN360
+      </Text>
+      <View
+        style={{
+          alignItems: "center",
+          height: 50,
+          justifyContent: "space-between",
+        }}
+      >
+        <Text style={{ color: "#fff" }}>Welcome {users.username}</Text>
+        <AntDesign
+          name="logout"
+          size={24}
+          color="#fff"
+          onPress={() => handleLogout()}
+        />
+      </View>
 
       <View
         style={{
@@ -101,7 +127,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "space-around",
+    justifyContent: "space-evenly",
     backgroundColor: "#161817",
   },
 });

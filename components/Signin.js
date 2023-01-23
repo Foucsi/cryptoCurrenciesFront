@@ -8,7 +8,7 @@ import {
 import React from "react";
 import { useState } from "react";
 
-export default function Signin() {
+export default function Signin({ setIsVisible }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   return (
@@ -29,6 +29,30 @@ export default function Signin() {
       <TouchableOpacity style={styles.touchable}>
         <Text style={{ color: "#fff", fontWeight: "bold" }}>LOGIN</Text>
       </TouchableOpacity>
+      <View
+        style={{
+          height: 30,
+          width: "70%",
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Text style={{ color: "#414141", fontSize: 18 }}>
+          Need an account ?{" "}
+        </Text>
+        <TouchableOpacity onPress={() => setIsVisible(false)}>
+          <Text
+            style={{
+              textDecorationLine: "underline",
+              color: "#414141",
+              fontSize: 18,
+            }}
+          >
+            SIGN UP
+          </Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }

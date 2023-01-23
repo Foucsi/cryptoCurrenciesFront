@@ -4,7 +4,7 @@ import Signin from "../components/Signin";
 import Signup from "../components/Signup";
 import { useState } from "react";
 
-export default function SignScreen() {
+export default function SignScreen({ navigation }) {
   const [isVisible, setIsVisible] = useState(true);
   return (
     <View style={styles.container}>
@@ -54,7 +54,11 @@ export default function SignScreen() {
         </View>
       </View>
       <View style={styles.containerSign}>
-        {isVisible ? <Signin /> : <Signup />}
+        {isVisible ? (
+          <Signin setIsVisible={setIsVisible} />
+        ) : (
+          <Signup setIsVisible={setIsVisible} />
+        )}
       </View>
     </View>
   );

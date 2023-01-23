@@ -33,6 +33,7 @@ export default function Signin({ setIsVisible, navigation }) {
           username: data.user.username,
           email: data.user.email,
           password: data.user.password,
+          token: data.user.token,
         })
       );
       navigation.navigate("Home");

@@ -7,15 +7,52 @@ import {
 } from "react-native";
 import React from "react";
 import { useState } from "react";
+import fetchIp from "../fetchIp.json";
+import { useDispatch } from "react-redux";
+import { login } from "../reducers/users";
 
-export default function Signin({ setIsVisible }) {
+export default function Signin({ setIsVisible, navigation }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [msgError, setMsgError] = useState("");
+
+  const dispatch = useDispatch();
+
+  const handleSubmit = async () => {
+    const res = await fetch(`http://${fetchIp.myIp}:3000/users/signin`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, password }),
+    });
+    const data = await res.json();
+
+    if (data.result) {
+      dispatch(
+        login({
+          username: data.user.username,
+          password: data.user.password,
+          token: data.user.token,
+        })
+      );
+      navigation.navigate("Home");
+      setUsername("");
+      setPassword("");
+    } else if (data.error === "Missing or empty fields") {
+      setMsgError("Missing or empty fields");
+    } else if (data.error === "User not found or wrong password") {
+      setMsgError("User not found or wrong password");
+    }
+  };
   return (
     <View style={styles.container}>
       <View style={{ width: "80%" }}>
         <Text style={{ paddingBottom: 10, color: "#414141" }}>Username</Text>
-        <TextInput autoCapitalize={false} style={styles.input} />
+        <TextInput
+          autoCapitalize={false}
+          style={styles.input}
+          value={username}
+          onChangeText={(value) => setUsername(value)}
+        />
       </View>
 
       <View style={{ width: "80%" }}>
@@ -24,9 +61,14 @@ export default function Signin({ setIsVisible }) {
           autoCapitalize={false}
           secureTextEntry={true}
           style={styles.input}
+          value={password}
+          onChangeText={(value) => setPassword(value)}
         />
       </View>
-      <TouchableOpacity style={styles.touchable}>
+      <View>
+        <Text>{msgError}</Text>
+      </View>
+      <TouchableOpacity style={styles.touchable} onPress={() => handleSubmit()}>
         <Text style={{ color: "#fff", fontWeight: "bold" }}>LOGIN</Text>
       </TouchableOpacity>
       <View

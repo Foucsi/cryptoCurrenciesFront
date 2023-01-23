@@ -15,6 +15,7 @@ export default function Signin({ setIsVisible, navigation }) {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [msgError, setMsgError] = useState("");
 
   const dispatch = useDispatch();
 
@@ -38,6 +39,10 @@ export default function Signin({ setIsVisible, navigation }) {
       setEmail("");
       setPassword("");
       setUsername("");
+    } else if (data.error === "Missing or empty fields") {
+      setMsgError("Missing or empty fields");
+    } else if (data.error === "User already exists") {
+      setMsgError("User already exists");
     }
   };
 
@@ -72,6 +77,9 @@ export default function Signin({ setIsVisible, navigation }) {
           value={password}
           onChangeText={(value) => setPassword(value)}
         />
+      </View>
+      <View>
+        <Text>{msgError}</Text>
       </View>
       <TouchableOpacity style={styles.touchable} onPress={() => handleSubmit()}>
         <Text style={{ color: "#fff", fontWeight: "bold" }}>SIGN UP</Text>

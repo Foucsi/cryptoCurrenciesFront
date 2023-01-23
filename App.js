@@ -4,7 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "./screens/HomeScreen";
 import CryptoScreen from "./screens/CryptoScreen";
-
+import SignScreen from "./screens/SignScreen";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import user from "./reducers/users";
@@ -19,6 +19,7 @@ export default function App() {
     <NavigationContainer>
       <Provider store={store}>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="Sign" component={SignScreen} />
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="Crypto" component={CryptoScreen} />
         </Stack.Navigator>

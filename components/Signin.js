@@ -4,6 +4,7 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
+  KeyboardAvoidingView,
 } from "react-native";
 import React from "react";
 import { useState } from "react";
@@ -112,6 +113,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 5,
     fontSize: 24,
+    padding: 5,
   },
   touchable: {
     backgroundColor: "#E73C71",

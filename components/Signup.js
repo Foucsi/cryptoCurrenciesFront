@@ -126,6 +126,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 5,
     fontSize: 20,
+    padding: 5,
   },
   touchable: {
     backgroundColor: "#E73C71",

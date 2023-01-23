@@ -67,7 +67,9 @@ export default function HomeScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text style={{ fontSize: 28, color: "#D4D4D4" }}>COIN360</Text>
+      <TouchableOpacity onPress={() => navigation.navigate("Sign")}>
+        <Text style={{ fontSize: 28, color: "#D4D4D4" }}>COIN360</Text>
+      </TouchableOpacity>
 
       <View
         style={{

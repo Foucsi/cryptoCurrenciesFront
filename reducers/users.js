@@ -6,6 +6,7 @@ const initialState = {
     token: null,
     password: null,
     email: null,
+    crypto: [],
   },
 };
 
@@ -24,8 +25,11 @@ export const userSlice = createSlice({
       state.value.email = null;
       state.value.token = null;
     },
+    addCrypto: (state, action) => {
+      state.value.crypto.push(action.payload);
+    },
   },
 });
 
-export const { login, logout } = userSlice.actions;
+export const { login, logout, addCrypto } = userSlice.actions;
 export default userSlice.reducer;

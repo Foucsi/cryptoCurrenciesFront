@@ -55,9 +55,9 @@ export default function SignScreen({ navigation }) {
       </View>
       <View style={styles.containerSign}>
         {isVisible ? (
-          <Signin setIsVisible={setIsVisible} />
+          <Signin setIsVisible={setIsVisible} navigation={navigation} />
         ) : (
-          <Signup setIsVisible={setIsVisible} />
+          <Signup setIsVisible={setIsVisible} navigation={navigation} />
         )}
       </View>
     </View>

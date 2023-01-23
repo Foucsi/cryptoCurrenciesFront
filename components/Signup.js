@@ -7,21 +7,60 @@ import {
 } from "react-native";
 import React from "react";
 import { useState } from "react";
+import fetchIp from "../fetchIp.json";
+import { useDispatch } from "react-redux";
+import { login } from "../reducers/users";
 
-export default function Signin({ setIsVisible }) {
+export default function Signin({ setIsVisible, navigation }) {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const dispatch = useDispatch();
+
+  const handleSubmit = async () => {
+    const res = await fetch(`http://${fetchIp.myIp}:3000/users/signup`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, email, password }),
+    });
+    const data = await res.json();
+
+    if (data.result) {
+      dispatch(
+        login({
+          username: data.user.username,
+          email: data.user.email,
+          password: data.user.password,
+        })
+      );
+      navigation.navigate("Home");
+      setEmail("");
+      setPassword("");
+      setUsername("");
+    }
+  };
+
   return (
     <View style={styles.container}>
       <View style={{ width: "80%" }}>
         <Text style={{ paddingBottom: 10, color: "#414141" }}>Username</Text>
-        <TextInput autoCapitalize={false} style={styles.input} />
+        <TextInput
+          autoCapitalize={false}
+          style={styles.input}
+          value={username}
+          onChangeText={(value) => setUsername(value)}
+        />
       </View>
 
       <View style={{ width: "80%" }}>
         <Text style={{ paddingBottom: 10, color: "#414141" }}>Email</Text>
-        <TextInput autoCapitalize={false} style={styles.input} />
+        <TextInput
+          autoCapitalize={false}
+          style={styles.input}
+          value={email}
+          onChangeText={(value) => setEmail(value)}
+        />
       </View>
 
       <View style={{ width: "80%" }}>
@@ -30,9 +69,11 @@ export default function Signin({ setIsVisible }) {
           autoCapitalize={false}
           secureTextEntry={true}
           style={styles.input}
+          value={password}
+          onChangeText={(value) => setPassword(value)}
         />
       </View>
-      <TouchableOpacity style={styles.touchable}>
+      <TouchableOpacity style={styles.touchable} onPress={() => handleSubmit()}>
         <Text style={{ color: "#fff", fontWeight: "bold" }}>SIGN UP</Text>
       </TouchableOpacity>
       <View
@@ -75,7 +116,7 @@ const styles = StyleSheet.create({
     borderColor: "#CACACA",
     borderWidth: 1,
     borderRadius: 5,
-    fontSize: 24,
+    fontSize: 20,
   },
   touchable: {
     backgroundColor: "#E73C71",

@@ -88,7 +88,10 @@ export default function HomeScreen({ navigation }) {
           justifyContent: "space-between",
         }}
       >
-        <Text style={{ color: "#fff" }}>Welcome {users.username}</Text>
+        <Text style={{ color: "#fff" }}>
+          Welcome {users.username.charAt(0).toUpperCase()}
+          {users.username.slice(1)}
+        </Text>
         <AntDesign
           name="logout"
           size={24}

@@ -1,8 +1,18 @@
-import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  ScrollView,
+} from "react-native";
 import React from "react";
 import { useRoute } from "@react-navigation/native";
+import { Fontisto } from "@expo/vector-icons";
+import { useState } from "react";
 
 export default function CryptoScreen({ navigation }) {
+  const [colorIcon, setColorIcon] = useState(false);
   const route = useRoute();
   const { crypto } = route.params;
 
@@ -18,9 +28,28 @@ export default function CryptoScreen({ navigation }) {
             width: "90%",
             flexDirection: "row",
             alignItems: "center",
-            justifyContent: "space-evenly",
+            justifyContent: "space-around",
           }}
         >
+          <TouchableOpacity onPress={() => setColorIcon(!colorIcon)}>
+            <View
+              style={{
+                height: 70,
+                width: 70,
+                backgroundColor: "#393B3A",
+                alignItems: "center",
+                justifyContent: "center",
+                borderRadius: 5,
+              }}
+            >
+              <Fontisto
+                name="favorite"
+                size={32}
+                color={colorIcon ? "#fff" : "#939494"}
+              />
+            </View>
+          </TouchableOpacity>
+
           <Image
             source={{ uri: crypto.image }}
             style={{ height: 70, width: 70 }}

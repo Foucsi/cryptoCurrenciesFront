@@ -10,11 +10,29 @@ import React from "react";
 import { useRoute } from "@react-navigation/native";
 import { Fontisto } from "@expo/vector-icons";
 import { useState } from "react";
+import fetchIp from "../fetchIp.json";
+import { useSelector } from "react-redux";
 
 export default function CryptoScreen({ navigation }) {
   const [colorIcon, setColorIcon] = useState(false);
+  const users = useSelector((state) => state.user.value);
   const route = useRoute();
   const { crypto } = route.params;
+
+  const addCrypto = async () => {
+    const res = await fetch(
+      `http://${fetchIp.myIp}:3000/users/addCrypto/${users.token}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ crypto: crypto.name }),
+      }
+    );
+    const data = await res.json();
+    if (data.result) {
+      setColorIcon(!colorIcon);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -31,7 +49,7 @@ export default function CryptoScreen({ navigation }) {
             justifyContent: "space-around",
           }}
         >
-          <TouchableOpacity onPress={() => setColorIcon(!colorIcon)}>
+          <TouchableOpacity onPress={() => addCrypto()}>
             <View
               style={{
                 height: 70,

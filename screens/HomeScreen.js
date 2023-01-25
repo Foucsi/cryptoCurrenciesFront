@@ -14,6 +14,7 @@ import { logout } from "../reducers/users";
 import { useSelector } from "react-redux";
 import { AntDesign } from "@expo/vector-icons";
 import { useDispatch } from "react-redux";
+import { Fontisto } from "@expo/vector-icons";
 
 export default function HomeScreen({ navigation }) {
   const [cryptos, setCryptos] = useState([]);
@@ -81,6 +82,7 @@ export default function HomeScreen({ navigation }) {
       <Text style={{ fontSize: 28, color: "#D4D4D4", paddingTop: 10 }}>
         COIN360
       </Text>
+
       <View
         style={{
           alignItems: "center",
@@ -88,10 +90,21 @@ export default function HomeScreen({ navigation }) {
           justifyContent: "space-between",
         }}
       >
-        <Text style={{ color: "#fff" }}>
-          Welcome {users.username.charAt(0).toUpperCase()}
-          {users.username.slice(1)}
-        </Text>
+        <View style={{ flexDirection: "row" }}>
+          <Text style={{ color: "#fff" }}>
+            Welcome {users.username.charAt(0).toUpperCase()}
+            {users.username.slice(1)}
+          </Text>
+          <TouchableOpacity onPress={() => navigation.navigate("Favorites")}>
+            <Fontisto
+              name="favorite"
+              size={24}
+              color="#fff"
+              style={{ paddingLeft: 10 }}
+            />
+          </TouchableOpacity>
+        </View>
+
         <AntDesign
           name="logout"
           size={24}

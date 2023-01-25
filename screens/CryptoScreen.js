@@ -20,18 +20,21 @@ export default function CryptoScreen({ navigation }) {
   const { crypto } = route.params;
 
   const addCrypto = async () => {
-    const res = await fetch(
-      `http://${fetchIp.myIp}:3000/users/addCrypto/${users.token}`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ crypto: crypto.name }),
+    if (!colorIcon) {
+      const res = await fetch(
+        `http://${fetchIp.myIp}:3000/users/addCrypto/${users.token}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ crypto: crypto.name }),
+        }
+      );
+      const data = await res.json();
+      if (data.result) {
+        setColorIcon(true);
       }
-    );
-    const data = await res.json();
-    if (data.result) {
-      setColorIcon(!colorIcon);
     }
+    setColorIcon(false);
   };
 
   return (

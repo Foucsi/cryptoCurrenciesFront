@@ -14,6 +14,7 @@ import fetchIp from "../fetchIp.json";
 import { useSelector } from "react-redux";
 import { moreCrypto } from "../reducers/users";
 import { useDispatch } from "react-redux";
+import { useEffect } from "react";
 
 export default function CryptoScreen({ navigation }) {
   const [colorIcon, setColorIcon] = useState(false);
@@ -21,6 +22,22 @@ export default function CryptoScreen({ navigation }) {
   const route = useRoute();
   const { crypto } = route.params;
   const dispatch = useDispatch();
+
+  // faire un useEffect qui verifie si la crypto est deja dans le document crypto de la db alors on met la couleur en blanc
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await fetch(
+        `http://${fetchIp.myIp}:3000/users/getUserByToken/${users.token}`
+      );
+      const data = await res.json();
+      const listCryptos = data.cryptosList.map((elmt) => elmt.cryptos);
+
+      if (listCryptos.includes(crypto.name)) {
+        setColorIcon(true);
+      }
+    };
+    fetchData();
+  }, []);
 
   const addCrypto = async () => {
     // si colorIcon et false et que crypto.name n'est pas dans users.crypto

@@ -1,0 +1,1 @@
+pouvoir supprimer un elemnt des favori crypto

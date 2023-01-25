@@ -28,8 +28,17 @@ export const userSlice = createSlice({
     moreCrypto: (state, action) => {
       state.value.crypto.push(action.payload);
     },
+    deleteCrypto: (state, action) => {
+      state.value.crypto = state.value.crypto.filter(
+        (e) => e !== action.payload
+      );
+    },
+    deleteAllCrypto: (state) => {
+      state.value.crypto = [];
+    },
   },
 });
 
-export const { login, logout, moreCrypto } = userSlice.actions;
+export const { login, logout, moreCrypto, deleteCrypto, deleteAllCrypto } =
+  userSlice.actions;
 export default userSlice.reducer;

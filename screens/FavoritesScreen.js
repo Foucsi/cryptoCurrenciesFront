@@ -11,10 +11,13 @@ import { useEffect } from "react";
 import { useState } from "react";
 import fetchIp from "../fetchIp.json";
 import { AntDesign } from "@expo/vector-icons";
+import { deleteCrypto } from "../reducers/users";
+import { useDispatch } from "react-redux";
 
 export default function FavoritesScreen({ navigation }) {
   const [list, setList] = useState([]);
   const users = useSelector((state) => state.user.value);
+  const dispatch = useDispatch();
 
   const removeCrypto = async (cry) => {
     const res = await fetch(
@@ -27,10 +30,10 @@ export default function FavoritesScreen({ navigation }) {
     );
     const data = await res.json();
     if (data.result) {
-      setList(list.filter((e) => e !== cry));
-      console.log(list);
-    } else {
-      console.log(data.message);
+      setList([...list.filter((e) => e !== cry)]);
+      dispatch(deleteCrypto(cry));
+      console.log(users.crypto.length);
+      console.log(users.crypto);
     }
   };
 

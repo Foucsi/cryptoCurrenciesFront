@@ -86,11 +86,18 @@ export default function HomeScreen({ navigation }) {
       <View
         style={{
           alignItems: "center",
-          height: 50,
+          height: 80,
           justifyContent: "space-between",
         }}
       >
-        <View style={{ flexDirection: "row" }}>
+        <View
+          style={{
+            flexDirection: "row",
+            width: "50%",
+            alignItems: "center",
+            justifyContent: "space-around",
+          }}
+        >
           <Text style={{ color: "#fff" }}>
             Welcome {users.username.charAt(0).toUpperCase()}
             {users.username.slice(1)}
@@ -103,6 +110,7 @@ export default function HomeScreen({ navigation }) {
               style={{ paddingLeft: 10 }}
             />
           </TouchableOpacity>
+          <Text style={{ color: "#fff" }}>({users.crypto.length})</Text>
         </View>
 
         <AntDesign

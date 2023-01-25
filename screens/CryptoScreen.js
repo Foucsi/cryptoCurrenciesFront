@@ -54,7 +54,6 @@ export default function CryptoScreen({ navigation }) {
       if (data.result) {
         setColorIcon(true);
         dispatch(moreCrypto(crypto.name));
-        console.log("tableau de crypto: ", users.crypto);
       } else {
         setColorIcon(false);
       }
@@ -90,7 +89,7 @@ export default function CryptoScreen({ navigation }) {
               <Fontisto
                 name="favorite"
                 size={32}
-                color={colorIcon ? "#fff" : "#939494"}
+                color={colorIcon ? "#E97B16" : "#939494"}
               />
             </View>
           </TouchableOpacity>

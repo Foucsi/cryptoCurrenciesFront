@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useState } from "react";
 import fetchIp from "../fetchIp.json";
+import { AntDesign } from "@expo/vector-icons";
 
 export default function FavoritesScreen({ navigation }) {
   const [list, setList] = useState([]);
@@ -19,13 +20,17 @@ export default function FavoritesScreen({ navigation }) {
       <View
         key={index}
         style={{
+          flexDirection: "row",
           height: 30,
-          width: "100%",
+          width: "50%",
           alignItems: "center",
-          justifyContent: "center",
+          justifyContent: "space-between",
         }}
       >
         <Text style={{ color: "#fff", fontSize: 22 }}>{elmt}</Text>
+        <TouchableOpacity>
+          <AntDesign name="delete" size={24} color="#fff" />
+        </TouchableOpacity>
       </View>
     );
   });
@@ -46,7 +51,7 @@ export default function FavoritesScreen({ navigation }) {
       <TouchableOpacity onPress={() => navigation.navigate("Home")}>
         <Text style={{ fontSize: 28, color: "#D4D4D4" }}>COIN360</Text>
       </TouchableOpacity>
-      <View style={{ marginTop: 20, alignItems: "center" }}>
+      <View style={{ marginTop: 20, alignItems: "center", width: "100%" }}>
         {allCryptoFavorites}
       </View>
     </View>

@@ -15,6 +15,25 @@ import { AntDesign } from "@expo/vector-icons";
 export default function FavoritesScreen({ navigation }) {
   const [list, setList] = useState([]);
   const users = useSelector((state) => state.user.value);
+
+  const removeCrypto = async (cry) => {
+    const res = await fetch(
+      `http://${fetchIp.myIp}:3000/users/removeCrypto/${users.token}`,
+      {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ crypto: cry }),
+      }
+    );
+    const data = await res.json();
+    if (data.result) {
+      setList(list.filter((e) => e !== cry));
+      console.log(list);
+    } else {
+      console.log(data.message);
+    }
+  };
+
   const allCryptoFavorites = list.map((elmt, index) => {
     return (
       <View
@@ -29,7 +48,12 @@ export default function FavoritesScreen({ navigation }) {
       >
         <Text style={{ color: "#fff", fontSize: 22 }}>{elmt}</Text>
         <TouchableOpacity>
-          <AntDesign name="delete" size={24} color="#fff" />
+          <AntDesign
+            name="delete"
+            size={24}
+            color="#fff"
+            onPress={() => removeCrypto(elmt)}
+          />
         </TouchableOpacity>
       </View>
     );

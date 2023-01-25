@@ -12,15 +12,19 @@ import { Fontisto } from "@expo/vector-icons";
 import { useState } from "react";
 import fetchIp from "../fetchIp.json";
 import { useSelector } from "react-redux";
+import { moreCrypto } from "../reducers/users";
+import { useDispatch } from "react-redux";
 
 export default function CryptoScreen({ navigation }) {
   const [colorIcon, setColorIcon] = useState(false);
   const users = useSelector((state) => state.user.value);
   const route = useRoute();
   const { crypto } = route.params;
+  const dispatch = useDispatch();
 
   const addCrypto = async () => {
-    if (!colorIcon) {
+    // si colorIcon et false et que crypto.name n'est pas dans users.crypto
+    if (!colorIcon && !users.crypto.includes(crypto.name)) {
       const res = await fetch(
         `http://${fetchIp.myIp}:3000/users/addCrypto/${users.token}`,
         {
@@ -32,9 +36,12 @@ export default function CryptoScreen({ navigation }) {
       const data = await res.json();
       if (data.result) {
         setColorIcon(true);
+        dispatch(moreCrypto(crypto.name));
+        console.log("tableau de crypto: ", users.crypto);
+      } else {
+        setColorIcon(false);
       }
     }
-    setColorIcon(false);
   };
 
   return (

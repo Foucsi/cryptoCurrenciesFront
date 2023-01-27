@@ -151,6 +151,8 @@ export default function HomeScreen({ navigation }) {
           alignItems: "center",
           justifyContent: "space-evenly",
           width: 300,
+          paddingBottom: 20,
+          paddingTop: 10,
         }}
       >
         <TextInput
@@ -179,7 +181,7 @@ export default function HomeScreen({ navigation }) {
       <ScrollView>
         <View
           style={{
-            paddingTop: 20,
+            marginTop: 20,
             height: "100%",
             width: "100%",
             flexWrap: "wrap",

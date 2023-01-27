@@ -3,6 +3,7 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
+  Linking,
   Image,
   ScrollView,
 } from "react-native";
@@ -20,6 +21,9 @@ export default function HomeScreen({ navigation }) {
   const [cryptos, setCryptos] = useState([]);
   const users = useSelector((state) => state.user.value);
   const dispatch = useDispatch();
+
+  const urlLinkedin = "https://www.linkedin.com/in/julien-foucart-333a40251/";
+  const urlGit = "https://github.com/Foucsi";
 
   const url =
     "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=12&page=1&sparkline=false";
@@ -133,7 +137,7 @@ export default function HomeScreen({ navigation }) {
         {listingCrypto ? listingCrypto : "Aucune données récuperées"}
       </View>
 
-      <View>
+      <View style={{ alignItems: "center" }}>
         <TouchableOpacity>
           <FontAwesome
             name="refresh"
@@ -142,8 +146,24 @@ export default function HomeScreen({ navigation }) {
             onPress={() => fetchData()}
           />
         </TouchableOpacity>
-        <View style={{ paddingTop: 10 }}>
-          <Text style={{ color: "#fff" }}>test</Text>
+        <View style={{ paddingTop: 10, paddingBottom: 10 }}>
+          <Text style={{ color: "#fff", fontSize: 12, paddingBottom: 10 }}>
+            Application created by Julien Foucart
+          </Text>
+          <View
+            style={{
+              alignItems: "center",
+              flexDirection: "row",
+              justifyContent: "space-evenly",
+            }}
+          >
+            <TouchableOpacity onPress={() => Linking.openURL(urlGit)}>
+              <AntDesign name="github" size={20} color="#fff" />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => Linking.openURL(urlLinkedin)}>
+              <AntDesign name="linkedin-square" size={20} color="#fff" />
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     </View>

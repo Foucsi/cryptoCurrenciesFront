@@ -24,7 +24,7 @@ export default function HomeScreen({ navigation }) {
   const users = useSelector((state) => state.user.value);
   const dispatch = useDispatch();
   const [countCrypto, setCountCrypto] = useState(0);
-  const [displayCrypto, setDisplayCrypto] = useState(10);
+  const [displayCrypto, setDisplayCrypto] = useState(12);
 
   const urlLinkedin = "https://www.linkedin.com/in/julien-foucart-333a40251/";
   const urlGit = "https://github.com/Foucsi";
@@ -73,6 +73,7 @@ export default function HomeScreen({ navigation }) {
             height: 120,
             width: 120,
             marginTop: 10,
+            marginLeft: 10,
             alignItems: "center",
             justifyContent: "space-evenly",
             borderRadius: 5,
@@ -97,15 +98,15 @@ export default function HomeScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text style={{ fontSize: 28, color: "#D4D4D4", paddingTop: 40 }}>
+      <Text style={{ fontSize: 28, color: "#D4D4D4", paddingTop: 70 }}>
         COIN360
       </Text>
 
       <View
         style={{
           alignItems: "center",
-          height: 80,
-          justifyContent: "space-between",
+          height: 60,
+          justifyContent: "space-evenly",
         }}
       >
         <View
@@ -169,17 +170,19 @@ export default function HomeScreen({ navigation }) {
           <AntDesign name="rightcircleo" size={24} color="#fff" />
         </TouchableOpacity>
       </View>
-      <View
-        style={{
-          height: "60%",
-          width: "90%",
-          flexWrap: "wrap",
-          justifyContent: "space-around",
-          flexDirection: "row",
-        }}
-      >
-        {listingCrypto ? listingCrypto : "Aucune données récuperées"}
-      </View>
+      <ScrollView>
+        <View
+          style={{
+            height: "100%",
+            width: "100%",
+            flexWrap: "wrap",
+            justifyContent: "center",
+            flexDirection: "row",
+          }}
+        >
+          {listingCrypto ? listingCrypto : "Aucune données récuperées"}
+        </View>
+      </ScrollView>
 
       <View style={{ alignItems: "center" }}>
         <TouchableOpacity>
@@ -193,7 +196,7 @@ export default function HomeScreen({ navigation }) {
             }}
           />
         </TouchableOpacity>
-        <View style={{ paddingTop: 10, paddingBottom: 10 }}>
+        <View style={{ paddingTop: 0, paddingBottom: 10 }}>
           <Text style={{ color: "#fff", fontSize: 12, paddingBottom: 10 }}>
             Application created by Julien Foucart
           </Text>

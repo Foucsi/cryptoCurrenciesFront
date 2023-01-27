@@ -6,6 +6,7 @@ import {
   Linking,
   Image,
   ScrollView,
+  TextInput,
 } from "react-native";
 import React from "react";
 import { useEffect } from "react";
@@ -23,12 +24,12 @@ export default function HomeScreen({ navigation }) {
   const users = useSelector((state) => state.user.value);
   const dispatch = useDispatch();
   const [countCrypto, setCountCrypto] = useState(0);
+  const [displayCrypto, setDisplayCrypto] = useState(10);
 
   const urlLinkedin = "https://www.linkedin.com/in/julien-foucart-333a40251/";
   const urlGit = "https://github.com/Foucsi";
 
-  const url =
-    "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=12&page=1&sparkline=false";
+  const url = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=${displayCrypto}&page=1&sparkline=false`;
 
   const fetchData = async () => {
     const res = await fetch(`${url}`);
@@ -96,7 +97,7 @@ export default function HomeScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text style={{ fontSize: 28, color: "#D4D4D4", paddingTop: 20 }}>
+      <Text style={{ fontSize: 28, color: "#D4D4D4", paddingTop: 40 }}>
         COIN360
       </Text>
 
@@ -137,7 +138,37 @@ export default function HomeScreen({ navigation }) {
           onPress={() => handleLogout()}
         />
       </View>
-
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-evenly",
+          width: 300,
+        }}
+      >
+        <TextInput
+          value={displayCrypto}
+          onChangeText={(value) => setDisplayCrypto(value)}
+          placeholderTextColor={"#fff"}
+          placeholder="Combien de cryptos à afficher ?"
+          style={{
+            borderColor: "#fff",
+            borderWidth: 0.3,
+            padding: 5,
+            color: "#fff",
+            width: 250,
+          }}
+        />
+        <TouchableOpacity
+          onPress={() => {
+            {
+              displayCrypto && fetchData();
+            }
+          }}
+        >
+          <AntDesign name="rightcircleo" size={24} color="#fff" />
+        </TouchableOpacity>
+      </View>
       <View
         style={{
           height: "60%",

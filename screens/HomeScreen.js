@@ -24,7 +24,7 @@ export default function HomeScreen({ navigation }) {
   const users = useSelector((state) => state.user.value);
   const dispatch = useDispatch();
   const [countCrypto, setCountCrypto] = useState(0);
-  const [displayCrypto, setDisplayCrypto] = useState(100);
+  const [displayCrypto, setDisplayCrypto] = useState("");
 
   const urlLinkedin = "https://www.linkedin.com/in/julien-foucart-333a40251/";
   const urlGit = "https://github.com/Foucsi";
@@ -57,7 +57,9 @@ export default function HomeScreen({ navigation }) {
     navigation.navigate("Sign");
   };
 
-  const listingCrypto = cryptos.map((crypt, index) => {
+  const filtered = cryptos.filter((cry) => cry.name.includes(displayCrypto));
+
+  const listingCrypto = filtered.map((crypt, index) => {
     return (
       <TouchableOpacity
         key={index}
@@ -159,7 +161,7 @@ export default function HomeScreen({ navigation }) {
           value={displayCrypto}
           onChangeText={(value) => setDisplayCrypto(value)}
           placeholderTextColor={"#fff"}
-          placeholder="Combien de cryptos à afficher ?"
+          placeholder="Search..."
           style={{
             borderColor: "#fff",
             borderWidth: 0.3,
@@ -168,15 +170,6 @@ export default function HomeScreen({ navigation }) {
             width: 250,
           }}
         />
-        <TouchableOpacity
-          onPress={() => {
-            {
-              displayCrypto && fetchData();
-            }
-          }}
-        >
-          <AntDesign name="rightcircleo" size={24} color="#fff" />
-        </TouchableOpacity>
       </View>
       <ScrollView>
         <View

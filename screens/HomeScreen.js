@@ -173,6 +173,7 @@ export default function HomeScreen({ navigation }) {
       <ScrollView>
         <View
           style={{
+            paddingTop: 20,
             height: "100%",
             width: "100%",
             flexWrap: "wrap",
@@ -184,7 +185,7 @@ export default function HomeScreen({ navigation }) {
         </View>
       </ScrollView>
 
-      <View style={{ alignItems: "center" }}>
+      <View style={{ alignItems: "center", paddingTop: 20 }}>
         <TouchableOpacity>
           <FontAwesome
             name="refresh"
@@ -196,7 +197,7 @@ export default function HomeScreen({ navigation }) {
             }}
           />
         </TouchableOpacity>
-        <View style={{ paddingTop: 0, paddingBottom: 10 }}>
+        <View style={{ paddingTop: 40, paddingBottom: 10, height: 160 }}>
           <Text style={{ color: "#fff", fontSize: 12, paddingBottom: 10 }}>
             Application created by Julien Foucart
           </Text>

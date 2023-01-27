@@ -16,11 +16,13 @@ import { useSelector } from "react-redux";
 import { AntDesign } from "@expo/vector-icons";
 import { useDispatch } from "react-redux";
 import { Fontisto } from "@expo/vector-icons";
+import fetchIp from "../fetchIp.json";
 
 export default function HomeScreen({ navigation }) {
   const [cryptos, setCryptos] = useState([]);
   const users = useSelector((state) => state.user.value);
   const dispatch = useDispatch();
+  const [countCrypto, setCountCrypto] = useState(0);
 
   const urlLinkedin = "https://www.linkedin.com/in/julien-foucart-333a40251/";
   const urlGit = "https://github.com/Foucsi";
@@ -32,6 +34,11 @@ export default function HomeScreen({ navigation }) {
     const res = await fetch(`${url}`);
     const data = await res.json();
     data ? setCryptos(data) : console.log(data);
+  };
+
+  const countCryptoData = async () => {
+    const res = await fetch(`http://${fetchIp.myIp}`);
+    const data = await res.json();
   };
 
   useEffect(() => {
@@ -114,7 +121,7 @@ export default function HomeScreen({ navigation }) {
               style={{ paddingLeft: 10 }}
             />
           </TouchableOpacity>
-          <Text style={{ color: "#fff" }}>({users.crypto.length})</Text>
+          <Text style={{ color: "#fff" }}>({countCrypto})</Text>
         </View>
 
         <AntDesign

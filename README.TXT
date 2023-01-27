@@ -1,1 +1,1 @@
-pouvoir supprimer un elemnt des favori crypto
+regarder le bug du reducer (il revient a 0) au logout

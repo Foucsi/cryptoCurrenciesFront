@@ -24,7 +24,7 @@ export default function HomeScreen({ navigation }) {
   const users = useSelector((state) => state.user.value);
   const dispatch = useDispatch();
   const [countCrypto, setCountCrypto] = useState(0);
-  const [displayCrypto, setDisplayCrypto] = useState(12);
+  const [displayCrypto, setDisplayCrypto] = useState(100);
 
   const urlLinkedin = "https://www.linkedin.com/in/julien-foucart-333a40251/";
   const urlGit = "https://github.com/Foucsi";
@@ -121,7 +121,13 @@ export default function HomeScreen({ navigation }) {
             Welcome {users.username.charAt(0).toUpperCase()}
             {users.username.slice(1)}
           </Text>
-          <TouchableOpacity onPress={() => navigation.navigate("Favorites")}>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate("Favorites", {
+                crypto: cryptos,
+              })
+            }
+          >
             <Fontisto
               name="favorite"
               size={24}

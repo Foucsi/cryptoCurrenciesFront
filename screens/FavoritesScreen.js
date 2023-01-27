@@ -4,6 +4,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
+  Image,
 } from "react-native";
 import React from "react";
 import { useSelector } from "react-redux";
@@ -13,11 +14,14 @@ import fetchIp from "../fetchIp.json";
 import { AntDesign } from "@expo/vector-icons";
 import { deleteCrypto } from "../reducers/users";
 import { useDispatch } from "react-redux";
+import { useRoute } from "@react-navigation/native";
 
 export default function FavoritesScreen({ navigation }) {
   const [list, setList] = useState([]);
   const users = useSelector((state) => state.user.value);
   const dispatch = useDispatch();
+  const route = useRoute();
+  const { crypto } = route.params;
 
   const removeCrypto = async (cry) => {
     const res = await fetch(
@@ -38,28 +42,40 @@ export default function FavoritesScreen({ navigation }) {
   };
 
   const allCryptoFavorites = list.map((elmt, index) => {
-    return (
-      <View
-        key={index}
-        style={{
-          flexDirection: "row",
-          height: 30,
-          width: "50%",
-          alignItems: "center",
-          justifyContent: "space-between",
-        }}
-      >
-        <Text style={{ color: "#fff", fontSize: 22 }}>{elmt}</Text>
-        <TouchableOpacity>
-          <AntDesign
-            name="delete"
-            size={24}
-            color="#fff"
-            onPress={() => removeCrypto(elmt)}
-          />
-        </TouchableOpacity>
-      </View>
-    );
+    return crypto.map((e) => {
+      if (elmt === e.name) {
+        return (
+          <View
+            key={index}
+            style={{
+              marginTop: 10,
+              flexDirection: "row",
+              height: 30,
+              width: "60%",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <Image
+              source={{ uri: e.image }}
+              style={{ height: 30, width: 30 }}
+            />
+            <Text style={{ color: "#fff", fontSize: 22 }}>{elmt}</Text>
+            <Text style={{ color: "#fff", fontSize: 16 }}>
+              ${e.current_price}
+            </Text>
+            <TouchableOpacity>
+              <AntDesign
+                name="delete"
+                size={24}
+                color="#fff"
+                onPress={() => removeCrypto(elmt)}
+              />
+            </TouchableOpacity>
+          </View>
+        );
+      }
+    });
   });
   useEffect(() => {
     const fetchData = async () => {

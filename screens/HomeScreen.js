@@ -79,7 +79,7 @@ export default function HomeScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text style={{ fontSize: 28, color: "#D4D4D4", paddingTop: 10 }}>
+      <Text style={{ fontSize: 28, color: "#D4D4D4", paddingTop: 20 }}>
         COIN360
       </Text>
 
@@ -142,6 +142,9 @@ export default function HomeScreen({ navigation }) {
             onPress={() => fetchData()}
           />
         </TouchableOpacity>
+        <View style={{ paddingTop: 10 }}>
+          <Text style={{ color: "#fff" }}>test</Text>
+        </View>
       </View>
     </View>
   );

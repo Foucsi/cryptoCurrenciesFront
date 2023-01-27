@@ -37,13 +37,19 @@ export default function HomeScreen({ navigation }) {
   };
 
   const countCryptoData = async () => {
-    const res = await fetch(`http://${fetchIp.myIp}`);
+    const res = await fetch(
+      `http://${fetchIp.myIp}:3000/users/getUserByToken/${users.token}`
+    );
     const data = await res.json();
+    {
+      data && setCountCrypto(data.cryptosList.length);
+    }
   };
 
   useEffect(() => {
     fetchData().catch(console.error);
-  }, []);
+    countCryptoData();
+  }, [users.crypto]);
 
   const handleLogout = () => {
     dispatch(logout());
@@ -150,7 +156,10 @@ export default function HomeScreen({ navigation }) {
             name="refresh"
             size={36}
             color="#fff"
-            onPress={() => fetchData()}
+            onPress={() => {
+              countCryptoData();
+              fetchData();
+            }}
           />
         </TouchableOpacity>
         <View style={{ paddingTop: 10, paddingBottom: 10 }}>

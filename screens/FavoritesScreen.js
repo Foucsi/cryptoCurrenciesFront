@@ -15,7 +15,7 @@ import { AntDesign } from "@expo/vector-icons";
 import { deleteCrypto } from "../reducers/users";
 import { useDispatch } from "react-redux";
 import { useRoute } from "@react-navigation/native";
-import { printToFileAAsync } from "expo-print";
+import { printToFileAsync } from "expo-print";
 import { shareAsync } from "expo-sharing";
 
 export default function FavoritesScreen({ navigation }) {
@@ -24,6 +24,27 @@ export default function FavoritesScreen({ navigation }) {
   const dispatch = useDispatch();
   const route = useRoute();
   const { crypto } = route.params;
+
+  const cr = list.map((e) => e);
+
+  const html = `
+    <html>
+      <body>
+        <div>
+        <p>${cr}</p>
+        </div>
+      </body>
+    </html>
+  `;
+
+  let generatePdf = async () => {
+    const file = await printToFileAsync({
+      html: html,
+      base64: false,
+    });
+
+    await shareAsync(file.uri);
+  };
 
   const removeCrypto = async (cry) => {
     const res = await fetch(
@@ -101,6 +122,7 @@ export default function FavoritesScreen({ navigation }) {
       </View>
       <View style={{ marginTop: 50 }}>
         <TouchableOpacity
+          onPress={generatePdf}
           style={{ backgroundColor: "tomato", padding: 10, borderRadius: 5 }}
         >
           <Text>Generate PDF</Text>

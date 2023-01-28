@@ -15,6 +15,8 @@ import { AntDesign } from "@expo/vector-icons";
 import { deleteCrypto } from "../reducers/users";
 import { useDispatch } from "react-redux";
 import { useRoute } from "@react-navigation/native";
+import { printToFileAAsync } from "expo-print";
+import { shareAsync } from "expo-sharing";
 
 export default function FavoritesScreen({ navigation }) {
   const [list, setList] = useState([]);
@@ -96,6 +98,13 @@ export default function FavoritesScreen({ navigation }) {
       </TouchableOpacity>
       <View style={{ marginTop: 20, alignItems: "center", width: "100%" }}>
         {allCryptoFavorites}
+      </View>
+      <View style={{ marginTop: 50 }}>
+        <TouchableOpacity
+          style={{ backgroundColor: "tomato", padding: 10, borderRadius: 5 }}
+        >
+          <Text>Generate PDF</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );

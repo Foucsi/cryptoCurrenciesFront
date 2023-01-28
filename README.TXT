@@ -1,2 +1,2 @@
 redesign le header etc...
-pouvoir generer des pdf
+pouvoir generer des pdf depuis l'ecran des favoris
